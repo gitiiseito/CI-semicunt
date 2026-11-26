@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Прайс-лист IT-администрирование</title>
+<style>
+:root{
+  --desk:#EDEFF2;--paper:#FFFFFF;--ink:#1A1D21;--mut:#5B6470;--faint:#8A93A0;
+  --line:#D8DCE1;--line-soft:#E3E7EC;--navy:#1F4E79;--navy-d:#173B5C;
+  --head:#EDF2F7;--green:#1E7A46;--rust:#B3402A;--note-bg:#F5F7FA;--note-ink:#3E4A5C;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--desk);color:var(--ink);font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:15px;line-height:1.6;font-variant-numeric:tabular-nums}
+::-webkit-scrollbar{width:10px;height:8px}
+::-webkit-scrollbar-track{background:var(--desk)}
+::-webkit-scrollbar-thumb{background:#C4CBD4;border-radius:6px;border:2px solid var(--desk)}
+::-webkit-scrollbar-thumb:hover{background:var(--navy)}
+*{scrollbar-width:thin;scrollbar-color:#C4CBD4 #EDEFF2}
+a{color:var(--navy)}
+:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+b{font-weight:600}
+.toolbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.tb-inner{max-width:880px;margin:0 auto;padding:9px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.tb-doc{font-size:13px;color:var(--mut)}
+.tb-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{padding:8px 14px;font-size:13px;font-weight:600;border-radius:6px;border:1px solid var(--navy);cursor:pointer;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:background .15s,color .15s}
+.btn-pri{background:var(--navy);color:#fff}
+.btn-pri:hover{background:var(--navy-d)}
+.btn-sec{background:#fff;color:var(--navy)}
+.btn-sec:hover{background:var(--head)}
+.btn[disabled]{opacity:.7;cursor:default}
+.sheet{max-width:880px;margin:26px auto 72px;background:var(--paper);border:1px solid var(--line);border-radius:6px;box-shadow:0 1px 3px rgba(16,24,40,.08),0 10px 28px rgba(16,24,40,.06);padding:44px 52px}
+section{scroll-margin-top:72px}
+.head{border-bottom:2px solid var(--navy);padding-bottom:14px;margin-bottom:18px}
+h1{font-size:24px;font-weight:700;letter-spacing:-.01em;line-height:1.25}
+.subtitle{color:var(--mut);font-size:14px;margin-top:5px}
+.head .meta{margin-top:8px}
+.toc{background:var(--note-bg);border:1px solid var(--line-soft);border-radius:4px;padding:11px 15px;font-size:13px;color:var(--mut);margin-bottom:6px}
+.toc b{color:var(--ink);margin-right:6px}
+.toc a{text-decoration:none;border-bottom:1px solid #C9D4E0;margin:0 2px;white-space:nowrap}
+.toc a:hover{border-bottom-color:var(--navy)}
+h2{font-size:17.5px;font-weight:700;color:var(--navy);margin:32px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.lead{color:var(--mut);font-size:14px;margin-bottom:12px}
+p{margin-bottom:10px}
+.meta{color:var(--mut);font-size:12.5px}
+.tbl-wrap{overflow-x:auto;margin:10px 0}
+table.grid{width:100%;border-collapse:collapse;border:1px solid var(--line);font-size:14px}
+.grid th{background:var(--head);color:var(--navy);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;text-align:left;padding:9px 12px;border-bottom:2px solid var(--navy)}
+.grid td{padding:10px 12px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+.grid tbody tr:last-child td{border-bottom:none}
+@media (hover:hover){.grid tbody tr:hover{background:#F5F8FB}}
+.desc{display:block;color:var(--mut);font-size:13px;line-height:1.5;margin-top:3px}
+.c-num{width:34px;color:var(--faint);font-size:13px}
+.c-price{width:132px;text-align:right;white-space:nowrap}
+.c-price b{font-size:15px;display:block}
+.c-price small{display:block;color:var(--faint);font-size:11.5px;font-weight:400;margin-top:2px;white-space:normal}
+.c-val{width:120px;text-align:right;white-space:nowrap;font-weight:700;font-size:15px}
+.g{color:var(--green)}.r{color:var(--rust)}
+.kv td:first-child{width:190px}
+.n{text-align:right;white-space:nowrap}
+.calc{min-width:520px}
+.sub td{border-top:1.5px solid var(--navy);font-weight:600}
+.total td{background:var(--head);border-top:2px solid var(--navy);font-weight:700;font-size:15px}
+.note{background:var(--note-bg);border-left:3px solid var(--navy);color:var(--note-ink);font-size:13px;padding:10px 13px;margin:12px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:720px){
+  .sheet{margin:0;border-left:none;border-right:none;border-radius:0;padding:24px 18px}
+  h1{font-size:20px}.two{grid-template-columns:1fr}
+  .btn{padding:7px 11px;font-size:12.5px}.kv td:first-child{width:120px}
+}
+@media (max-width:480px){.c-num{display:none}.c-price{width:106px}.c-val{width:92px}.grid td,.grid th{padding:8px 9px}}
+@media print{
+  @page{size:A4;margin:16mm 14mm}
+  body{background:#fff;font-size:12px}
+  .toolbar{display:none}
+  .sheet{max-width:none;margin:0;padding:0;border:none;border-radius:0;box-shadow:none}
+  .tbl-wrap{overflow:visible}
+  table.grid{font-size:11px}.desc{font-size:10px}.grid th{font-size:9.5px}
+  h1{font-size:18px}h2{font-size:14px;margin:18px 0 8px;page-break-after:avoid}
+  tr,.note{page-break-inside:avoid}
+  thead{display:table-header-group}
+  a{color:inherit;text-decoration:none}.toc a{border-bottom:none}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar" id="top">
+  <div class="tb-inner">
+    <span class="tb-doc">Прайс-лист на услуги IT-администрирования</span>
+    <div class="tb-actions">
+      <a class="btn btn-pri" href="https://t.me/iiseito" target="_blank" rel="noopener">Написать в Telegram</a>
+      <button class="btn btn-sec" id="btnDocx">Сохранить в Word</button>
+      <button class="btn btn-sec" id="btnPdf">Печать в PDF</button>
+    </div>
+  </div>
+</div>
+
+<main class="sheet" id="sheet"></main>
+
+<script>
+(function(){
+'use strict';
+
+var EXECUTOR='Бирюков Егор Владимирович';
+var EDITION='26.11.2026';
+var TITLE='Прайс-лист на услуги IT-администрирования';
+var SUBTITLE='Первичная настройка сети и оборудования, сопровождение рабочих мест и серверов';
+
+function S(h,d){return {h:h,d:d};}
+function P(v,u){return {v:v,u:u};}
+function V(v,c){return {v:v,c:c};}
+function N(n){return {n:n};}
+function B(b){return {b:b};}
+function A(href,text){return {a:{href:href,text:text}};}
+function SP(span,text,o){o=o||{};return {span:span,text:text,bold:o.bold,color:o.color};}
+
+var SECTIONS=[
+{id:'s1',h:'1. Порядок оказания услуг',blocks:[
+  {t:'p',text:'Услуги оказываются исполнителем — Бирюковым Егором Владимировичем, физическим лицом, зарегистрированным в качестве плательщика налога на профессиональный доход (самозанятого). Работы выполняются по предварительной записи и согласованному графику с учётом внешней занятости; круглосуточное дежурство не предусмотрено. Обращения принимаются с 7:00 до 23:00 (МСК); срок первичной обработки обращения — от 30 минут до 6 часов. Срочные заявки выполняются при наличии возможности с применением надбавок, указанных в разделе 4.'},
+  {t:'table',kind:'kv',head:['Формат','Порядок'],rows:[
+    [B('Разовые работы'),'Выполнение отдельных задач по заявке. Оплата по факту выполненных работ по ставкам раздела 2.'],
+    [B('Пакет часов'),'Предоплата пакета от 10 часов со скидкой 10%. Часы расходуются по мере выполнения задач; срок действия пакета — 6 месяцев.'],
+    [B('Абонентское сопровождение'),'Ежемесячная фиксированная плата по ставкам раздела 3. Выезды и работы сверх состава абонентской платы оплачиваются отдельно.'],
+    [B('Аудит'),'Предварительный аудит не оплачивается. Полный аудит, дорожная карта и проект внедрения оплачиваются по часовой ставке 1 400 ₽/ч; ориентировочный объём — 6–12 часов. Оплата по факту произведённых работ.']
+  ]}
+]},
+{id:'s2',h:'2. Разовые работы и почасовые ставки',blocks:[
+  {t:'p',lead:true,text:'Ставки указаны за выполнение работ без учёта стоимости материалов. Оборудование, лицензии и расходные материалы приобретаются заказчиком; рекомендации по спецификации закупок предоставляются исполнителем.'},
+  {t:'table',kind:'svc',head:['№','Наименование работ','Ставка'],rows:[
+    [N('1'),S('Удалённая работа','Диагностика, настройка, консультации через удалённый доступ. Тарификация по 30 минут.'),P('600 ₽','за 30 мин')],
+    [N('2'),S('Работа на территории заказчика','Выезд в офис. Минимальный выезд — 2 500 ₽ (до 2 часов), далее почасовая оплата.'),P('1 500 ₽','за час')],
+    [N('3'),S('Полный аудит, дорожная карта, проект внедрения','Предварительный аудит выполнен без оплаты. Включает детальный осмотр, план работ и смету внедрения. Ориентировочный объём — 6–12 часов для офиса на 10–20 рабочих мест.'),P('1 400 ₽','за час')],
+    [N('4'),S('Настройка рабочего места под ключ','Установка и настройка ОС и драйверов, офисного пакета, клиента 1С (подключение к базам, обновление платформы), КриптоПро и электронной подписи, ЭДО и банк-клиента, почты и мессенджеров; ввод в домен/сеть, подключение принтеров и сетевых дисков, перенос данных, инструктаж пользователя.'),P('2 500 ₽','за ед.')],
+    [N('5'),S('Первичная настройка сервера (ОС + 2 роли)','Например, контроллер домена и файловый сервер. Политика обновлений, базовая защита, документирование конфигурации.'),P('8 000 ₽','за ед.')],
+    [N('6'),S('Резервное копирование','Расписание, глубина хранения, копия вне офиса. Обязательное тестовое восстановление с протоколом.'),P('3 000 ₽','за ед.')],
+    [N('7'),S('Настройка роутера / коммутатора','Адресация, маршрутизация, NAT, базовые правила безопасности, резервный канал. Конфигурации VLAN/VPN/HA — по отдельной договорённости.'),P('2 000 ₽','за ед.')],
+    [N('8'),S('Настройка принтера / МФУ','Подключение по USB или сети, установка драйверов, общий доступ, сканирование в папку или на почту. Сетевой принт-сервер — отдельно.'),P('1 000 ₽','за ед.')],
+    [N('9'),S('Прокладка кабеля UTP','Монтаж трасс в коробе, лотке или за подвесным потолком: разметка, укладка, маркировка.'),P('70 ₽','за пог. м')],
+    [N('10'),S('Розетка RJ-45: монтаж и расключение','Заделка по стандарту T568B, маркировка, тестирование линии.'),P('300 ₽','за ед.')],
+    [N('11'),S('Кроссирование патч-панели','Разделка, заделка, жгутирование, маркировка, тестирование соединения.'),P('100 ₽','за ед.')],
+    [N('12'),S('Сборка и монтаж шкафа 6–12U','Установка патч-панелей, организаторов, блока питания и ИБП, укладка кабеля, схема коммутации.'),P('3 000 ₽','за ед.')]
+  ]}
+]},
+{id:'s3',h:'3. Абонентское сопровождение',blocks:[
+  {t:'p',lead:true,text:'Абонентское сопровождение подключается по отдельной договорённости и не применяется по умолчанию. Ежемесячная плата включает удалённые консультации и устранение мелких неисправностей в согласованные интервалы. Круглосуточное дежурство не предусмотрено. Выезды и работы сверх состава абонентской платы оплачиваются по ставкам раздела 2.'},
+  {t:'table',kind:'svc',head:['№','Объект сопровождения','Ставка'],rows:[
+    [N('1'),S('Рабочее место (ПК / ноутбук)','Консультации, мелкие правки, обновления ОС и ПО, поддержка клиента 1С и КриптоПро, антивирусный контроль, диагностика.'),P('800 ₽','в месяц · за ед.')],
+    [N('2'),S('Сервер (Windows / Linux)','Один сервер компании: службы, обновления, проверка резервных копий, мониторинг по согласованию.'),P('3 000 ₽','в месяц')],
+    [N('3'),S('Роутер / шлюз','Правила доступа, NAT, VPN, резервный канал, обновление прошивок.'),P('500 ₽','в месяц')],
+    [N('4'),S('Коммутатор','VLAN, порты, контроль ошибок интерфейсов, резервирование конфигурации.'),P('300 ₽','в месяц')],
+    [N('5'),S('Точка доступа Wi-Fi','Роуминг, гостевой сегмент, контроль нагрузки и помех.'),P('300 ₽','в месяц')],
+    [N('6'),S('Принтер / МФУ','Драйверы, общий доступ, сканирование, устранение мелких сбоев. Расходные материалы — за счёт заказчика.'),P('300 ₽','в месяц · за ед.')]
+  ]}
+]},
+{id:'s4',h:'4. Скидки и надбавки',blocks:[
+  {t:'two',left:{kind:'disc',head:['Скидка','Размер'],rows:[
+    [S('От 20 рабочих мест','Применяется к абонентской плате.'),V('−10%','g')],
+    [S('Пакет от 10 часов (предоплата)','На почасовые работы. Срок действия пакета — 6 месяцев.'),V('−10%','g')],
+    [S('Предоплата абонентской платы за 3 месяца','Разовая предоплата квартала.'),V('−5%','g')]
+  ]},right:{kind:'disc',head:['Надбавка','Размер'],rows:[
+    [S('Срочное выполнение (день в день)','Выполнение в день обращения.'),V('+30%','r')],
+    [S('Работы после 21:00 и в выходные дни','Работы вне согласованного графика.'),V('+25%','r')],
+    [S('Сложный монтаж','Высота более 2,5 м, монтаж в труднодоступной зоне.'),V('+30%','r')]
+  ]}},
+  {t:'note',text:'Скидки суммируются, но не более 15% суммарно. Надбавки перемножаются и применяются только при фактическом наличии соответствующего условия.'}
+]},
+{id:'s5',h:'5. Примеры расчёта',blocks:[
+  {t:'p',bold:true,text:'Пример 1. Абонентское сопровождение: 15 рабочих мест, 1 сервер, 1 роутер, 1 коммутатор, 2 точки Wi-Fi, 2 МФУ. Предоплата за 3 месяца.'},
+  {t:'table',kind:'calc',head:['Позиция','Кол-во','Ставка, ₽','Сумма, ₽/мес'],rows:[
+    ['Рабочие места',N('15'),N('800'),N('12 000')],
+    ['Сервер',N('1'),N('3 000'),N('3 000')],
+    ['Роутер',N('1'),N('500'),N('500')],
+    ['Коммутатор',N('1'),N('300'),N('300')],
+    ['Точки Wi-Fi',N('2'),N('300'),N('600')],
+    ['МФУ',N('2'),N('300'),N('600')],
+    {kind:'sub',cells:[SP(3,'База',{bold:true}),N('17 000')]},
+    [SP(3,'Предоплата за 3 месяца (−5%)'),V('−850','g')],
+    {kind:'total',cells:[SP(3,'Итого',{bold:true}),N('16 150')]}
+  ]},
+  {t:'p',meta:true,text:'Удельная стоимость ≈ 1 077 ₽ на рабочее место с учётом сервера, сети и принтеров.'},
+  {t:'p',bold:true,text:'Пример 2. Разовые работы (запуск): настройка 8 рабочих мест, 1 сервера, 2 МФУ. Оплата пакетом часов от 10 ч.'},
+  {t:'table',kind:'calc',head:['Позиция','Кол-во','Ставка, ₽','Сумма, ₽'],rows:[
+    ['Настройка рабочего места',N('8'),N('2 500'),N('20 000')],
+    ['Первичная настройка сервера',N('1'),N('8 000'),N('8 000')],
+    ['Настройка МФУ',N('2'),N('1 000'),N('2 000')],
+    {kind:'sub',cells:[SP(3,'База',{bold:true}),N('30 000')]},
+    [SP(3,'Пакет часов от 10 ч (−10%)'),V('−3 000','g')],
+    {kind:'total',cells:[SP(3,'Итого',{bold:true}),N('27 000')]}
+  ]}
+]},
+{id:'s6',h:'6. Условия и контакты',blocks:[
+  {t:'table',kind:'kv',head:null,rows:[
+    [B('Статус исполнителя'),'Бирюков Егор Владимирович, физическое лицо, плательщик налога на профессиональный доход (самозанятый). НДС не облагается; после оплаты формируется чек в приложении «Мой налог».'],
+    [B('Порядок оплаты'),'Оплата по факту выполненных работ либо предоплатой пакета часов / абонентской платы. Чек НПД формируется в приложении «Мой налог» и направляется заказчику после каждой оплаты. Дополнительно по запросу предоставляется подтверждение платежа с указанием идентификатора платежа, ФИО получателя, банка и описания оплаченной услуги.'],
+    [B('Приём обращений'),'С 7:00 до 23:00 (МСК). Работы вне графика и срочные заявки — по согласованию, с надбавками раздела 4.'],
+    [B('Оборудование и лицензии'),'Приобретаются заказчиком; исполнитель предоставляет рекомендации по спецификации и совместимости. Устанавливается лицензионное или свободно распространяемое ПО. Для продуктов, официально не представленных на рынке РФ, по согласованию используются свободные аналоги либо ПО, предоставленное заказчиком с подтверждением права использования.'],
+    [B('Конфиденциальность'),'Доступы не передаются третьим лицам; работы выполняются под учётной записью заказчика либо по отдельной договорённости.'],
+    [B('Статус документа'),'Не является публичной офертой (ст. 437 ГК РФ). Точная смета определяется после осмотра инфраструктуры.']
+  ]},
+  {t:'table',kind:'kv',head:null,rows:[
+    [B('Telegram'),A('https://t.me/iiseito','@iiseito')],
+    [B('Телефон'),A('tel:+79653135775','+7 (965) 313-57-75')],
+    [B('Электронная почта'),A('mailto:ookiiseito@gmail.com','ookiiseito@gmail.com')],
+    [B('ФИО исполнителя'),'Бирюков Егор Владимирович']
+  ]}
+]}
+];
+
+var WIDTHS={svc:[520,7544,1800],disc:[8064,1800],kv:[2600,7264],calc:[5064,1200,1700,1900]};
+var COLORS={g:'1E7A46',r:'B3402A',navy:'1F4E79',mut:'5B6470',faint:'8A93A0',ink:'1A1D21',note:'3E4A5C'};
+
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function cellHTML(c){
+  if(typeof c==='string')return{html:esc(c),cls:''};
+  if(c.h)return{html:'<b>'+esc(c.h)+'</b>'+(c.d?'<span class="desc">'+esc(c.d)+'</span>':''),cls:''};
+  if(c.v&&c.u)return{html:'<b>'+esc(c.v)+'</b><small>'+esc(c.u)+'</small>',cls:'c-price'};
+  if(c.v)return{html:esc(c.v),cls:'c-val '+(c.c||'')};
+  if(c.n)return{html:esc(c.n),cls:'n'};
+  if(c.b)return{html:'<b>'+esc(c.b)+'</b>',cls:''};
+  if(c.a)return{html:'<a href="'+esc(c.a.href)+'"'+(c.a.href.indexOf('http')===0?' target="_blank" rel="noopener"':'')+'>'+esc(c.a.text)+'</a>',cls:''};
+  if(c.span)return{html:(c.bold?'<b>':'')+esc(c.text)+(c.bold?'</b>':''),cls:'',span:c.span,color:c.color};
+  return{html:'',cls:''};
+}
+function tableHTML(b){
+  var cls='grid'+(b.kind==='calc'?' calc':'')+(b.kind==='kv'?' kv':'');
+  var h='<div class="tbl-wrap"><table class="'+cls+'">';
+  if(b.head){h+='<thead><tr>';b.head.forEach(function(t,i){var right=(b.kind==='svc'&&i===2)||(b.kind==='disc'&&i===1)||(b.kind==='calc'&&i>0);var num=(b.kind==='svc'&&i===0);h+='<th'+(num?' class="c-num"':'')+(right?' style="text-align:right"':'')+'>'+esc(t)+'</th>';});h+='</tr></thead>';}
+  h+='<tbody>';
+  b.rows.forEach(function(row){var kind=row.kind||'',cells=row.cells||row;h+='<tr'+(kind?' class="'+kind+'"':'')+'>';cells.forEach(function(c){var r=cellHTML(c);var style=r.color?' style="color:var(--'+(r.color==='g'?'green':'rust')+')"':'';h+='<td'+(r.cls?' class="'+r.cls+'"':'')+(r.span?' colspan="'+r.span+'"':'')+style+'>'+r.html+'</td>';});h+='</tr>';});
+  h+='</tbody></table></div>';return h;
+}
+function blockHTML(b){
+  switch(b.t){
+    case 'p':return '<p'+(b.lead?' class="lead"':'')+(b.meta?' class="meta"':'')+'>'+(b.bold?'<b>'+esc(b.text)+'</b>':esc(b.text))+'</p>';
+    case 'note':return '<p class="note">'+esc(b.text)+'</p>';
+    case 'two':return '<div class="two">'+tableHTML(b.left)+tableHTML(b.right)+'</div>';
+    case 'table':return tableHTML(b);
+  }
+  return '';
+}
+function renderScreen(){
+  var h='<div class="head"><h1>'+esc(TITLE)+'</h1><p class="subtitle">'+esc(SUBTITLE)+'</p><p class="meta">Исполнитель: '+esc(EXECUTOR)+' · самозанятый (НПД) · редакция от '+esc(EDITION)+'</p></div>';
+  h+='<nav class="toc"><b>Содержание:</b> '+SECTIONS.map(function(s){return '<a href="#'+s.id+'">'+esc(s.h)+'</a>';}).join(' · ')+'</nav>';
+  SECTIONS.forEach(function(s){h+='<section id="'+s.id+'"><h2>'+esc(s.h)+'</h2>'+s.blocks.map(blockHTML).join('')+'</section>';});
+  document.getElementById('sheet').innerHTML=h;
+}
+renderScreen();
+
+/* ---------- .docx ---------- */
+var CRC_T=(function(){var t=new Uint32Array(256);for(var n=0;n<256;n++){var c=n;for(var k=0;k<8;k++)c=(c&1)?(0xEDB88320^(c>>>1)):(c>>>1);t[n]=c>>>0;}return t;})();
+function crc32(u8){var c=0xFFFFFFFF;for(var i=0;i<u8.length;i++)c=CRC_T[(c^u8[i])&0xFF]^(c>>>8);return(c^0xFFFFFFFF)>>>0;}
+function zipStore(files){
+  var enc=new TextEncoder(),chunks=[],central=[],offset=0,now=new Date();
+  var dosTime=(now.getHours()<<11)|(now.getMinutes()<<5)|(now.getSeconds()>>1);
+  var dosDate=((now.getFullYear()-1980)<<9)|((now.getMonth()+1)<<5)|now.getDate();
+  files.forEach(function(f){
+    var name=enc.encode(f.name),data=f.data,crc=crc32(data);
+    var lh=new DataView(new ArrayBuffer(30));
+    lh.setUint32(0,0x04034b50,true);lh.setUint16(4,20,true);lh.setUint16(6,0,true);lh.setUint16(8,0,true);
+    lh.setUint16(10,dosTime,true);lh.setUint16(12,dosDate,true);lh.setUint32(14,crc,true);
+    lh.setUint32(18,data.length,true);lh.setUint32(22,data.length,true);lh.setUint16(26,name.length,true);lh.setUint16(28,0,true);
+    chunks.push(new Uint8Array(lh.buffer),name,data);
+    var ch=new DataView(new ArrayBuffer(46));
+    ch.setUint32(0,0x02014b50,true);ch.setUint16(4,20,true);ch.setUint16(6,20,true);ch.setUint16(8,0,true);ch.setUint16(10,0,true);
+    ch.setUint16(12,dosTime,true);ch.setUint16(14,dosDate,true);ch.setUint32(16,crc,true);ch.setUint32(20,data.length,true);ch.setUint32(24,data.length,true);
+    ch.setUint16(28,name.length,true);ch.setUint16(30,0,true);ch.setUint16(32,0,true);ch.setUint16(34,0,true);ch.setUint16(36,0,true);
+    ch.setUint32(38,0,true);ch.setUint32(42,offset,true);
+    central.push(new Uint8Array(ch.buffer),name);
+    offset+=30+name.length+data.length;
+  });
+  var cdSize=0;central.forEach(function(c){cdSize+=c.length;});
+  var eo=new DataView(new ArrayBuffer(22));
+  eo.setUint32(0,0x06054b50,true);eo.setUint16(4,0,true);eo.setUint16(6,0,true);
+  eo.setUint16(8,files.length,true);eo.setUint16(10,files.length,true);
+  eo.setUint32(12,cdSize,true);eo.setUint32(16,offset,true);eo.setUint16(20,0,true);
+  var all=chunks.concat(central,[new Uint8Array(eo.buffer)]),total=0;
+  all.forEach(function(a){total+=a.length;});
+  var out=new Uint8Array(total),p=0;all.forEach(function(a){out.set(a,p);p+=a.length;});
+  return out;
+}
+function xesc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');}
+function run(t,o){o=o||{};var r='';if(o.b)r+='<w:b/>';if(o.color)r+='<w:color w:val="'+o.color+'"/>';if(o.sz)r+='<w:sz w:val="'+o.sz+'"/><w:szCs w:val="'+o.sz+'"/>';return '<w:r>'+(r?'<w:rPr>'+r+'</w:rPr>':'')+'<w:t xml:space="preserve">'+xesc(t)+'</w:t></w:r>';}
+function para(runs,o){o=o||{};var p='';if(o.style)p+='<w:pStyle w:val="'+o.style+'"/>';if(o.keepNext)p+='<w:keepNext/>';if(o.border)p+='<w:pBdr><w:left w:val="single" w:sz="18" w:space="6" w:color="1F4E79"/></w:pBdr>';if(o.fill)p+='<w:shd w:val="clear" w:color="auto" w:fill="'+o.fill+'"/>';if(o.spacing)p+='<w:spacing'+(o.spacing.before?' w:before="'+o.spacing.before+'"':'')+(o.spacing.after?' w:after="'+o.spacing.after+'"':'')+'/>';if(o.ind)p+='<w:ind w:left="'+o.ind+'"/>';if(o.jc)p+='<w:jc w:val="'+o.jc+'"/>';return '<w:p>'+(p?'<w:pPr>'+p+'</w:pPr>':'')+(Array.isArray(runs)?runs.join(''):runs)+'</w:p>';}
+function cellParas(c){
+  if(typeof c==='string')return[para(run(c))];
+  if(c.h){var a=[para(run(c.h,{b:true}))];if(c.d)a.push(para(run(c.d,{color:COLORS.mut,sz:18}),{spacing:{before:40}}));return a;}
+  if(c.v&&c.u)return[para(run(c.v,{b:true,sz:24}),{jc:'right'}),para(run(c.u,{color:COLORS.faint,sz:17}),{jc:'right'})];
+  if(c.v)return[para(run(c.v,{b:true,color:COLORS[c.c]||COLORS.ink,sz:24}),{jc:'right'})];
+  if(c.n)return[para(run(c.n),{jc:'right'})];
+  if(c.b)return[para(run(c.b,{b:true}))];
+  if(c.a)return[para(run(c.a.text,{color:COLORS.navy}))];
+  if(c.span)return[para(run(c.text,{b:c.bold,color:c.color?COLORS[c.color]:undefined}))];
+  return[para(run(''))];
+}
+function tc(c,w,o){o=o||{};var pr='<w:tcW w:w="'+w+'" w:type="dxa"/>';if(o.span)pr+='<w:gridSpan w:val="'+o.span+'"/>';if(o.fill)pr+='<w:shd w:val="clear" w:color="auto" w:fill="'+o.fill+'"/>';if(o.topBorder)pr+='<w:tcBorders><w:top w:val="single" w:sz="'+o.topBorder.sz+'" w:space="0" w:color="'+o.topBorder.color+'"/></w:tcBorders>';pr+='<w:vAlign w:val="top"/>';var ps;if(o.head)ps=[para(run(c,{b:true,color:COLORS.navy,sz:18}),{jc:o.right?'right':'left'})];else ps=cellParas(c);return '<w:tc><w:tcPr>'+pr+'</w:tcPr>'+ps.join('')+'</w:tc>';}
+function tbl(widths,rows){var b='<w:tblBorders><w:top w:val="single" w:sz="4" w:space="0" w:color="D8DCE1"/><w:left w:val="single" w:sz="4" w:space="0" w:color="D8DCE1"/><w:bottom w:val="single" w:sz="4" w:space="0" w:color="D8DCE1"/><w:right w:val="single" w:sz="4" w:space="0" w:color="D8DCE1"/><w:insideH w:val="single" w:sz="4" w:space="0" w:color="D8DCE1"/><w:insideV w:val="single" w:sz="4" w:space="0" w:color="D8DCE1"/></w:tblBorders>';var g='<w:tblGrid>'+widths.map(function(w){return '<w:gridCol w:w="'+w+'"/>';}).join('')+'</w:tblGrid>';return '<w:tbl><w:tblPr><w:tblW w:w="5000" w:type="pct"/>'+b+'<w:tblCellMar><w:top w:w="60" w:type="dxa"/><w:left w:w="100" w:type="dxa"/><w:bottom w:w="60" w:type="dxa"/><w:right w:w="100" w:type="dxa"/></w:tblCellMar><w:tblLayout w:type="fixed"/></w:tblPr>'+g+rows+'</w:tbl>';}
+function tableDocx(b){
+  var widths=WIDTHS[b.kind],rows='';
+  if(b.head){var hr='<w:tr><w:trPr><w:tblHeader/><w:cantSplit/></w:trPr>';b.head.forEach(function(t,i){var right=(b.kind==='svc'&&i===2)||(b.kind==='disc'&&i===1)||(b.kind==='calc'&&i>0);hr+=tc(t,widths[i],{head:true,fill:'EDF2F7',right:right});});rows+=hr+'</w:tr>';}
+  b.rows.forEach(function(row){var kind=row.kind||'',cells=row.cells||row,tr='<w:tr><w:trPr><w:cantSplit/></w:trPr>',ci=0;cells.forEach(function(c){var span=(c&&c.span)?c.span:1,w=0;for(var k=0;k<span;k++)w+=widths[ci+k]||0;var o={span:span>1?span:0};if(kind==='total'){o.fill='EDF2F7';o.topBorder={sz:12,color:'1F4E79'};}if(kind==='sub')o.topBorder={sz:8,color:'1F4E79'};tr+=tc(c,w,o);ci+=span;});rows+=tr+'</w:tr>';});
+  return tbl(widths,rows);
+}
+function blockDocx(b){
+  switch(b.t){
+    case 'p':return para(run(b.text,{b:b.bold,color:(b.meta||b.lead)?COLORS.mut:undefined,sz:b.meta?19:(b.lead?20:undefined)}),{spacing:{after:120}});
+    case 'note':return para(run(b.text,{color:COLORS.note,sz:19}),{border:true,fill:'F5F7FA',ind:120,spacing:{before:80,after:120}});
+    case 'two':return tableDocx(b.left)+tableDocx(b.right);
+    case 'table':return tableDocx(b);
+  }
+  return '';
+}
+function buildDocx(){
+  var body='';
+  body+=para(run(TITLE,{b:true,sz:34,color:COLORS.navy}),{style:'H1'});
+  body+=para(run(SUBTITLE,{color:COLORS.mut,sz:20}),{spacing:{after:80}});
+  body+=para(run('Исполнитель: '+EXECUTOR+' · самозанятый (НПД) · редакция от '+EDITION,{color:COLORS.mut,sz:19}),{spacing:{after:160}});
+  SECTIONS.forEach(function(s){body+=para(run(s.h),{style:'H2'});s.blocks.forEach(function(b){body+=blockDocx(b);});});
+  body+='<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1021" w:bottom="1134" w:left="1021" w:header="708" w:footer="708" w:gutter="0"/></w:sectPr>';
+  var documentXml='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>'+body+'</w:body></w:document>';
+  var stylesXml='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/><w:sz w:val="22"/><w:szCs w:val="22"/><w:color w:val="1A1D21"/><w:lang w:val="ru-RU"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="120" w:line="276" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults><w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/></w:style><w:style w:type="paragraph" w:styleId="H1"><w:name w:val="heading 1"/><w:basedOn w:val="Normal"/><w:pPr><w:keepNext/><w:spacing w:before="240" w:after="120"/><w:outlineLvl w:val="0"/></w:pPr><w:rPr><w:b/><w:sz w:val="34"/><w:color w:val="1F4E79"/></w:rPr></w:style><w:style w:type="paragraph" w:styleId="H2"><w:name w:val="heading 2"/><w:basedOn w:val="Normal"/><w:pPr><w:keepNext/><w:spacing w:before="320" w:after="140"/><w:outlineLvl w:val="1"/></w:pPr><w:rPr><w:b/><w:sz w:val="26"/><w:color w:val="1F4E79"/></w:rPr></w:style></w:styles>';
+  var contentTypes='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/></Types>';
+  var rels='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>';
+  var docRels='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>';
+  var enc=new TextEncoder();
+  return zipStore([
+    {name:'[Content_Types].xml',data:enc.encode(contentTypes)},
+    {name:'_rels/.rels',data:enc.encode(rels)},
+    {name:'word/document.xml',data:enc.encode(documentXml)},
+    {name:'word/_rels/document.xml.rels',data:enc.encode(docRels)},
+    {name:'word/styles.xml',data:enc.encode(stylesXml)}
+  ]);
+}
+function download(blob,name){var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},1500);}
+document.getElementById('btnDocx').addEventListener('click',function(){
+  var btn=this,old=btn.textContent;
+  try{download(new Blob([buildDocx()],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'}),'price-iiseito.docx');btn.textContent='Word ✓';btn.disabled=true;setTimeout(function(){btn.textContent=old;btn.disabled=false;},1500);}
+  catch(e){console.error(e);btn.textContent='Ошибка';setTimeout(function(){btn.textContent=old;},1800);}
+});
+document.getElementById('btnPdf').addEventListener('click',function(){window.print();});
+})();
+</script>
+</body>
+</html>
